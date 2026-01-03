@@ -3,7 +3,7 @@ import type { Poll } from "~~/types";
 
 export const useWebSocketHandler = () => {
   const { fingerprint, loading: fpLoading } = useFingerprint();
-  const voted = ref(false);
+  const voted = ref(true);
   const error = ref("");
   const poll = ref<Poll>({ fw: 0, lib: 0 });
   const loading = computed(() => fpLoading.value);

@@ -9,8 +9,7 @@ export const useFingerprint = () => {
     try {
       const fp = await FingerprintJS.load();
       const result = await fp.get();
-      // fingerprint.value = result.visitorId;
-      fingerprint.value = result.visitorId + Math.random();
+      fingerprint.value = result.visitorId;
     } catch (error) {
       console.error("Error getting fingerprint:", error);
       // Fallback to simple hash

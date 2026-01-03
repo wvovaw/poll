@@ -15,7 +15,6 @@ function random(min: number, max: number) {
     return Math.random() * (max - min) + min;
 }
 
-// 🔥 Фактор напряжения: 0 → 1 (макс. около 50%)
 const intensity = computed(() => {
     const distance = Math.abs(props.fwPercent - 50);
     return 1 - Math.min(distance / 50, 1);
