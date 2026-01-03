@@ -1,5 +1,5 @@
 import browserslist from 'browserslist'
-import { browserslistToTargets } from 'lightningcss'
+import { browserslistToTargets } from 'lightningcss-wasm'
 
 export default defineNuxtConfig({
   modules: ['@vueuse/nuxt'],
@@ -22,15 +22,13 @@ export default defineNuxtConfig({
     storage: {
       db: {
         driver: 'fs-lite',
-        // TODO: change for prod data folder path
-        base: './data/db',
+        base: import.meta.env.NODE_ENV === 'production' ? '/app/data/db' : './data/db',
       },
     },
   },
 
   vite: {
     css: {
-      transformer: 'lightningcss',
       lightningcss: {
         targets: browserslistToTargets(browserslist('>= 0.25%')),
         drafts: {
