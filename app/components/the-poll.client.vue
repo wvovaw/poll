@@ -41,10 +41,9 @@ const libPercent = computed(() => 100 - fwPercent.value);
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    max-width: 70%;
-    margin: 0 auto;
+    margin-top: 200px;
+    justify-content: start;
+    height: 100vh;
     padding: var(--space-lg);
     color: var(--color-text);
 }

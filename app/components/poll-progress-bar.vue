@@ -9,48 +9,103 @@ defineProps<{
 </script>
 
 <template>
-    <div class="progress-bar">
-        <div class="fw-bar" :style="{ width: fwPercent + '%' }">
-            {{ currentPoll.fw }}
+    <div class="progress-container">
+        <div class="progress-bar">
+            <div class="fw-bar" :style="{ width: fwPercent + '%' }"></div>
+            <div class="lib-bar" :style="{ width: libPercent + '%' }"></div>
+            <div class="spark" :style="{ left: fwPercent + '%' }">⚡</div>
         </div>
-        <div class="lib-bar" :style="{ width: libPercent + '%' }">
-            {{ currentPoll.lib }}
+        <div class="progress-labels">
+            <span class="fw-label">Framework: {{ currentPoll.fw }}</span>
+            <span class="lib-label">Library: {{ currentPoll.lib }}</span>
         </div>
-        <div class="spark" :style="{ left: fwPercent + '%' }">⚡</div>
     </div>
 </template>
 
 <style scoped>
-@import "~/assets/css/breakpoints.css";
+@custom-media --mobile (width < 768px);
+
+.progress-container {
+    --color-dark: #000;
+    --color-light: #eee;
+
+    width: 100%;
+    max-width: 600px;
+}
 
 .progress-bar {
+    display: flex;
     position: relative;
     height: 50px;
-    width: 100%;
-    display: flex;
-    background: var(--color-secondary);
+    background: var(--color-light);
     border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin-bottom: var(--space-md);
 
     .fw-bar {
         height: 100%;
-        background: var(--color-primary);
-        color: white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: bold;
+        background-color: var(--color-light);
+        opacity: 0.8;
+        background: radial-gradient(
+            circle,
+            var(--color-dark) 40%,
+            transparent 41%
+        );
+        background-size: 0.5em 0.5em;
+        background-color: var(--color-light);
+        opacity: 1;
         transition: width 0.3s ease;
     }
 
     .lib-bar {
         height: 100%;
-        background: var(--color-accent);
-        color: white;
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        padding-right: var(--space-md);
-        font-weight: bold;
+        background-color: var(--color-light);
+        opacity: 0.8;
+        background: linear-gradient(
+            135deg,
+            var(--color-dark) 0%,
+            var(--color-dark) 5%,
+            transparent 5%,
+            transparent 10%,
+            var(--color-dark) 10%,
+            var(--color-dark) 15%,
+            transparent 15%,
+            transparent 20%,
+            var(--color-dark) 20%,
+            var(--color-dark) 25%,
+            transparent 25%,
+            transparent 30%,
+            var(--color-dark) 30%,
+            var(--color-dark) 35%,
+            transparent 35%,
+            transparent 40%,
+            var(--color-dark) 40%,
+            var(--color-dark) 45%,
+            transparent 45%,
+            transparent 50%,
+            var(--color-dark) 50%,
+            var(--color-dark) 55%,
+            transparent 55%,
+            transparent 60%,
+            var(--color-dark) 60%,
+            var(--color-dark) 65%,
+            transparent 65%,
+            transparent 70%,
+            var(--color-dark) 70%,
+            var(--color-dark) 75%,
+            transparent 70%,
+            transparent 80%,
+            var(--color-dark) 80%,
+            var(--color-dark) 85%,
+            transparent 85%,
+            transparent 90%,
+            var(--color-dark) 90%,
+            var(--color-dark) 95%,
+            transparent 95%
+        );
+        background-size: 2em 2em;
+        background-color: var(--color-light);
+        opacity: 1;
         transition: width 0.3s ease;
     }
 
@@ -74,7 +129,21 @@ defineProps<{
     }
 }
 
-/* Mobile-first responsive */
+.progress-labels {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    color: var(--color-text);
+}
+
+.fw-label {
+    text-align: left;
+}
+
+.lib-label {
+    text-align: right;
+}
+
 @media (--mobile) {
     .progress-bar {
         height: 40px;

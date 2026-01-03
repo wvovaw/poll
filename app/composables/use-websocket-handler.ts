@@ -30,7 +30,7 @@ export const useWebSocketHandler = () => {
         error.value = "";
       }
     } else if (newData.startsWith("error:")) {
-      error.value = newData.slice(6); // e.g., 'already_voted' or 'invalid_vote'
+      error.value = newData.slice(6);
     }
   });
 
