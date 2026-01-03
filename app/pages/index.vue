@@ -1,12 +1,5 @@
-<script setup lang="ts">
-import type { Poll } from "~~/types";
-
-const { data: poll } = await useFetch<Poll>("/api/poll");
-</script>
+<script setup lang="ts"></script>
 
 <template>
-    <div v-if="poll">
-        <ThePoll :poll />
-    </div>
-    <div v-else>loading</div>
+    <ThePoll />
 </template>

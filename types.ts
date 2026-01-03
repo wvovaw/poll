@@ -1,4 +1,4 @@
 export interface Poll {
-  lib: Number;
-  fw: Number;
+  lib: number;
+  fw: number;
 }

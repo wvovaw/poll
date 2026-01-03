@@ -1,8 +1,9 @@
-export default eventHandler((event) => {
+export default defineEventHandler(async (event) => {
   const storage = useStorage("poll");
-  // return current poll state
-  return {
-    lib: 10,
-    fw: 12,
-  };
+  let poll = await storage.getItem("poll");
+  if (!poll) {
+    poll = { lib: 0, fw: 0 };
+    await storage.setItem("poll", poll);
+  }
+  return poll;
 });

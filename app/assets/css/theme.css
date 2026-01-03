@@ -1,0 +1,36 @@
+@import "./breakpoints.css";
+
+:root {
+    /* Colors */
+    --color-bg: oklab(0.95 0.02 0.01);
+    --color-text: oklab(0.2 0.01 0.01);
+    --color-primary: oklab(0.6 -0.1 0.15);
+    --color-secondary: oklab(0.7 0.05 -0.1);
+    --color-accent: oklab(0.8 -0.05 0.2);
+    --color-error: oklab(0.55 0.15 0.1);
+
+    /* Spacing */
+    --space-xs: 0.25rem;
+    --space-sm: 0.5rem;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 2rem;
+
+    /* Typography */
+    --font-size-sm: 0.875rem;
+    --font-size-base: 1rem;
+    --font-size-lg: 1.25rem;
+    --font-size-xl: 1.5rem;
+    --font-size-2xl: 2rem;
+
+    /* Border radius */
+    --radius-sm: 0.25rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 1rem;
+    --radius-full: 9999px;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 oklab(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px oklab(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px oklab(0 0 0 / 0.1);
+}
