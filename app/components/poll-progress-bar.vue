@@ -11,8 +11,14 @@ defineProps<{
 <template>
     <div class="progress-container">
         <div class="progress-bar">
-            <div class="fw-bar" :style="{ width: fwPercent + '%' }"></div>
-            <div class="lib-bar" :style="{ width: libPercent + '%' }"></div>
+            <div
+                class="fw-bar pattern-fw"
+                :style="{ width: fwPercent + '%' }"
+            ></div>
+            <div
+                class="lib-bar pattern-lib"
+                :style="{ width: libPercent + '%' }"
+            ></div>
             <div class="spark" :style="{ left: fwPercent + '%' }">⚡</div>
         </div>
         <div class="progress-labels">
@@ -23,14 +29,14 @@ defineProps<{
 </template>
 
 <style scoped>
-@custom-media --mobile (width < 768px);
+@import "~/assets/css/breakpoints.css";
 
 .progress-container {
-    --color-dark: #000;
-    --color-light: #eee;
-
     width: 100%;
     max-width: 600px;
+
+    --transition-duration: 0.4s;
+    --transition-fn: ease-out;
 }
 
 .progress-bar {
@@ -38,83 +44,25 @@ defineProps<{
     position: relative;
     height: 50px;
     background: var(--color-light);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
     margin-bottom: var(--space-md);
 
     .fw-bar {
         height: 100%;
-        background-color: var(--color-light);
-        opacity: 0.8;
-        background: radial-gradient(
-            circle,
-            var(--color-dark) 40%,
-            transparent 41%
-        );
-        background-size: 0.5em 0.5em;
-        background-color: var(--color-light);
-        opacity: 1;
-        transition: width 0.3s ease;
+        transition: width var(--transition-duration) var(--transition-fn);
     }
 
     .lib-bar {
         height: 100%;
-        background-color: var(--color-light);
-        opacity: 0.8;
-        background: linear-gradient(
-            135deg,
-            var(--color-dark) 0%,
-            var(--color-dark) 5%,
-            transparent 5%,
-            transparent 10%,
-            var(--color-dark) 10%,
-            var(--color-dark) 15%,
-            transparent 15%,
-            transparent 20%,
-            var(--color-dark) 20%,
-            var(--color-dark) 25%,
-            transparent 25%,
-            transparent 30%,
-            var(--color-dark) 30%,
-            var(--color-dark) 35%,
-            transparent 35%,
-            transparent 40%,
-            var(--color-dark) 40%,
-            var(--color-dark) 45%,
-            transparent 45%,
-            transparent 50%,
-            var(--color-dark) 50%,
-            var(--color-dark) 55%,
-            transparent 55%,
-            transparent 60%,
-            var(--color-dark) 60%,
-            var(--color-dark) 65%,
-            transparent 65%,
-            transparent 70%,
-            var(--color-dark) 70%,
-            var(--color-dark) 75%,
-            transparent 70%,
-            transparent 80%,
-            var(--color-dark) 80%,
-            var(--color-dark) 85%,
-            transparent 85%,
-            transparent 90%,
-            var(--color-dark) 90%,
-            var(--color-dark) 95%,
-            transparent 95%
-        );
-        background-size: 2em 2em;
-        background-color: var(--color-light);
-        opacity: 1;
-        transition: width 0.3s ease;
+        transition: width var(--transition-duration) var(--transition-fn);
     }
 
     .spark {
         position: absolute;
         top: 50%;
         transform: translate(-50%, -50%);
-        font-size: var(--font-size-xl);
+        font-size: 3em;
         animation: spark 1s infinite alternate;
+        transition: left var(--transition-duration) var(--transition-fn);
     }
 }
 

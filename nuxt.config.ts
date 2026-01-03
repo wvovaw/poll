@@ -5,7 +5,7 @@ export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
 
-  css: ['~/assets/css/reset.css', '~/assets/css/theme.css'],
+  css: ['~/assets/css/reset.css', '~/assets/css/theme.css', '~/assets/css/patterns.css'],
 
   nitro: {
     experimental: {

@@ -1,57 +1,64 @@
 <script setup lang="ts">
 defineProps<{
-  voted: boolean;
-  error: string;
+    voted: boolean;
+    error: string;
 }>();
 
 defineEmits<{
-  vote: [type: 'fw' | 'lib'];
+    vote: [type: "fw" | "lib"];
 }>();
 </script>
 
 <template>
-  <div v-if="!voted">
-    <button @click="$emit('vote', 'fw')">Framework</button>
-    <button @click="$emit('vote', 'lib')">Library</button>
-    <div v-if="error" class="error">{{ error }}</div>
-  </div>
+    <div v-if="!voted">
+        <button class="vote-btn pattern-fw" @click="$emit('vote', 'fw')">
+            <div class="inner">Vote Framework</div>
+        </button>
+        <button class="vote-btn pattern-lib" @click="$emit('vote', 'lib')">
+            <div class="inner">Vote Library</div>
+        </button>
+        <div v-if="error" class="error">{{ error }}</div>
+    </div>
 </template>
 
 <style scoped>
-@custom-media --mobile (width < 768px);
-button {
-  background: var(--color-primary);
-  color: white;
-  border: none;
-  padding: var(--space-md) var(--space-lg);
-  margin: var(--space-sm);
-  font-size: var(--font-size-base);
-  cursor: pointer;
-  transition: background 0.2s;
+@import "~/assets/css/breakpoints.css";
 
-  &:hover {
-    background: oklab(from var(--color-primary) calc(l + 0.1) a b);
-  }
+.vote-btn {
+    border: none;
+    padding: 10px;
+    margin: var(--space-lg);
+    cursor: pointer;
+    font-size: var(--font-size-base);
+    transition: transform 0.2s;
 
-  &:focus {
-    outline: 2px solid var(--color-accent);
-    outline-offset: 2px;
-  }
+    &:hover {
+        transform: scale(1.05);
+    }
 
-  /* Corner shape for modern look */
-  clip-path: corner-shape(0.5rem);
+    &:focus {
+        outline: 2px solid var(--color-accent);
+        outline-offset: 2px;
+    }
+
+    .inner {
+        background: white;
+        padding: var(--space-md) var(--space-lg);
+        border-radius: calc(var(--radius-md) - 5px);
+        font-weight: bold;
+    }
 }
 
 .error {
-  color: var(--color-error);
-  margin-top: var(--space-sm);
+    color: var(--color-error);
+    margin-top: var(--space-sm);
 }
 
 /* Mobile-first responsive */
 @media (--mobile) {
-  button {
-    width: 100%;
-    max-width: 200px;
-  }
+    .vote-btn {
+        width: 100%;
+        max-width: 200px;
+    }
 }
 </style>

@@ -1,0 +1,64 @@
+/* Pattern utility classes */
+:root {
+  --color-dark: #000;
+  --color-light: #eee;
+}
+
+.pattern-fw {
+  background-color: var(--color-light);
+  opacity: 0.8;
+  background: radial-gradient(
+    circle,
+    var(--color-dark) 40%,
+    transparent 41%
+  );
+  background-size: 0.5em 0.5em;
+}
+
+.pattern-lib {
+  background-color: var(--color-light);
+  opacity: 0.8;
+  background: linear-gradient(
+    135deg,
+    var(--color-dark) 0%,
+    var(--color-dark) 5%,
+    transparent 5%,
+    transparent 10%,
+    var(--color-dark) 10%,
+    var(--color-dark) 15%,
+    transparent 15%,
+    transparent 20%,
+    var(--color-dark) 20%,
+    var(--color-dark) 25%,
+    transparent 25%,
+    transparent 30%,
+    var(--color-dark) 30%,
+    var(--color-dark) 35%,
+    transparent 35%,
+    transparent 40%,
+    var(--color-dark) 40%,
+    var(--color-dark) 45%,
+    transparent 45%,
+    transparent 50%,
+    var(--color-dark) 50%,
+    var(--color-dark) 55%,
+    transparent 55%,
+    transparent 60%,
+    var(--color-dark) 60%,
+    var(--color-dark) 65%,
+    transparent 65%,
+    transparent 70%,
+    var(--color-dark) 70%,
+    var(--color-dark) 75%,
+    transparent 75%,
+    transparent 80%,
+    var(--color-dark) 80%,
+    var(--color-dark) 85%,
+    transparent 85%,
+    transparent 90%,
+    var(--color-dark) 90%,
+    var(--color-dark) 95%,
+    transparent 95%
+  );
+  background-size: 2em 2em;
+}
