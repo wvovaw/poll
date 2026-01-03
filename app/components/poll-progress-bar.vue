@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { onMounted, onBeforeUnmount, ref } from "vue";
 import type { Poll } from "~~/types";
 
 defineProps<{
@@ -6,6 +7,34 @@ defineProps<{
     libPercent: number;
     currentPoll: Poll;
 }>();
+
+const sparkEl = ref<HTMLElement | null>(null);
+
+let timer: number | null = null;
+
+function random(min: number, max: number) {
+    return Math.random() * (max - min) + min;
+}
+
+onMounted(() => {
+    timer = window.setInterval(
+        () => {
+            if (!sparkEl.value) return;
+
+            sparkEl.value.style.setProperty("--spark-x", `${random(-4, 4)}px`);
+            sparkEl.value.style.setProperty("--spark-y", `${random(-4, 4)}px`);
+            sparkEl.value.style.setProperty(
+                "--spark-rot",
+                `${random(-20, 20)}deg`,
+            );
+        },
+        random(60, 120),
+    );
+});
+
+onBeforeUnmount(() => {
+    if (timer) clearInterval(timer);
+});
 </script>
 
 <template>
@@ -19,8 +48,12 @@ defineProps<{
                 class="lib-bar pattern-lib"
                 :style="{ width: libPercent + '%' }"
             ></div>
-            <div class="spark" :style="{ left: fwPercent + '%' }">⚡</div>
+
+            <div ref="sparkEl" class="spark" :style="{ left: fwPercent + '%' }">
+                ⚡
+            </div>
         </div>
+
         <div class="progress-labels">
             <span class="fw-label">Framework: {{ currentPoll.fw }}</span>
             <span class="lib-label">Library: {{ currentPoll.lib }}</span>
@@ -45,35 +78,42 @@ defineProps<{
     height: 50px;
     background: var(--color-light);
     margin-bottom: var(--space-md);
-
-    .fw-bar {
-        height: 100%;
-        transition: width var(--transition-duration) var(--transition-fn);
-    }
-
-    .lib-bar {
-        height: 100%;
-        transition: width var(--transition-duration) var(--transition-fn);
-    }
-
-    .spark {
-        position: absolute;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 3em;
-        animation: spark 1s infinite alternate;
-        transition: left var(--transition-duration) var(--transition-fn);
-    }
 }
 
-@keyframes spark {
+.fw-bar,
+.lib-bar {
+    height: 100%;
+    transition: width var(--transition-duration) var(--transition-fn);
+}
+
+.spark {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%)
+        translate(var(--spark-x, 0px), var(--spark-y, 0px))
+        rotate(var(--spark-rot, 0deg)) scale(var(--spark-scale, 1));
+    font-size: 3em;
+    animation: spark-pulse 0.8s infinite ease-in-out;
+    transition:
+        left var(--transition-duration) var(--transition-fn),
+        transform 120ms linear;
+    transform-origin: center;
+    will-change: transform;
+    pointer-events: none;
+}
+
+@keyframes spark-pulse {
     0% {
-        opacity: 0.5;
-        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.7;
+        --spark-scale: 1;
+    }
+    50% {
+        opacity: 1;
+        --spark-scale: 1.15;
     }
     100% {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1.2);
+        opacity: 0.7;
+        --spark-scale: 1;
     }
 }
 
@@ -95,6 +135,10 @@ defineProps<{
 @media (--mobile) {
     .progress-bar {
         height: 40px;
+    }
+
+    .spark {
+        font-size: 2.4em;
     }
 }
 </style>
