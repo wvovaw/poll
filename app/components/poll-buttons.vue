@@ -10,7 +10,7 @@ defineEmits<{
 </script>
 
 <template>
-    <div v-if="!voted">
+    <div v-if="!voted" class="vote-container">
         <button class="vote-btn pattern-fw" @click="$emit('vote', 'fw')">
             <div class="inner">Vote Framework</div>
         </button>
@@ -24,11 +24,17 @@ defineEmits<{
 <style scoped>
 @import "~/assets/css/breakpoints.css";
 
+.vote-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-lg);
+    margin: var(--space-lg);
+}
+
 .vote-btn {
     border: none;
     padding: 10px;
-    margin: var(--space-lg);
-    cursor: pointer;
     font-size: var(--font-size-base);
     transition: transform 0.2s;
 
@@ -42,7 +48,7 @@ defineEmits<{
     }
 
     .inner {
-        background: white;
+        background: var(--color-bg);
         padding: var(--space-md) var(--space-lg);
         border-radius: calc(var(--radius-md) - 5px);
         font-weight: bold;
@@ -52,13 +58,5 @@ defineEmits<{
 .error {
     color: var(--color-error);
     margin-top: var(--space-sm);
-}
-
-/* Mobile-first responsive */
-@media (--mobile) {
-    .vote-btn {
-        width: 100%;
-        max-width: 200px;
-    }
 }
 </style>

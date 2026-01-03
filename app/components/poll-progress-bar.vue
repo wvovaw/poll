@@ -1,31 +1,44 @@
 <script setup lang="ts">
-import { onMounted, onBeforeUnmount, ref } from "vue";
+import { onMounted, onBeforeUnmount, ref, computed } from "vue";
 import type { Poll } from "~~/types";
 
-defineProps<{
+const props = defineProps<{
     fwPercent: number;
     libPercent: number;
     currentPoll: Poll;
 }>();
 
 const sparkEl = ref<HTMLElement | null>(null);
-
 let timer: number | null = null;
 
 function random(min: number, max: number) {
     return Math.random() * (max - min) + min;
 }
 
+// 🔥 Фактор напряжения: 0 → 1 (макс. около 50%)
+const intensity = computed(() => {
+    const distance = Math.abs(props.fwPercent - 50);
+    return 1 - Math.min(distance / 50, 1);
+});
+
 onMounted(() => {
     timer = window.setInterval(
         () => {
             if (!sparkEl.value) return;
 
-            sparkEl.value.style.setProperty("--spark-x", `${random(-4, 4)}px`);
-            sparkEl.value.style.setProperty("--spark-y", `${random(-4, 4)}px`);
+            const power = intensity.value;
+
+            sparkEl.value.style.setProperty(
+                "--spark-x",
+                `${random(-6, 6) * power}px`,
+            );
+            sparkEl.value.style.setProperty(
+                "--spark-y",
+                `${random(-6, 6) * power}px`,
+            );
             sparkEl.value.style.setProperty(
                 "--spark-rot",
-                `${random(-20, 20)}deg`,
+                `${random(-30, 30) * power}deg`,
             );
         },
         random(60, 120),
