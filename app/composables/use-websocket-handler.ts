@@ -8,9 +8,9 @@ export function useWebSocketHandler() {
   const poll = ref<Poll>({ fw: 0, lib: 0 })
   const loading = computed(() => fpLoading.value)
 
-  // In prod check if secure, then use wss://
+  const proto = import.meta.env.PROD ? 'wss' : 'ws'
   const { data, send, status } = useWebSocket(
-    `ws://${window.location.host}/api/poll-ws`,
+    `${proto}://${window.location.host}/api/poll-ws`,
   )
 
   watch(data, (newData) => {
