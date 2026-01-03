@@ -1,37 +1,30 @@
 <script setup lang="ts">
 const {
-    voted,
-    error,
-    poll: currentPoll,
-    loading,
-    vote: handleVote,
-} = useWebSocketHandler();
+  voted,
+  error,
+  poll: currentPoll,
+  loading,
+  vote: handleVote,
+} = useWebSocketHandler()
 
-const total = computed(() => currentPoll.value.fw + currentPoll.value.lib);
+const total = computed(() => currentPoll.value.fw + currentPoll.value.lib)
 const fwPercent = computed(() =>
-    total.value > 0 ? (currentPoll.value.fw / total.value) * 100 : 50,
-);
-const libPercent = computed(() => 100 - fwPercent.value);
+  total.value > 0 ? (currentPoll.value.fw / total.value) * 100 : 50,
+)
+const libPercent = computed(() => 100 - fwPercent.value)
 </script>
 
 <template>
-    <div class="poll">
-        <PollQuestion />
-        <div v-if="loading" class="loading">Loading...</div>
-        <template v-else>
-            <PollProgressBar
-                :fwPercent="fwPercent"
-                :libPercent="libPercent"
-                :currentPoll="currentPoll"
-            />
-            <PollButtons
-                v-if="!voted"
-                :voted="voted"
-                :error="error"
-                @vote="handleVote"
-            />
-        </template>
+  <div class="poll">
+    <PollQuestion />
+    <div v-if="loading" class="loading">
+      Loading...
     </div>
+    <template v-else>
+      <PollProgressBar :fw-percent="fwPercent" :lib-percent="libPercent" :current-poll="currentPoll" />
+      <PollButtons v-if="!voted" :voted="voted" :error="error" @vote="handleVote" />
+    </template>
+  </div>
 </template>
 
 <style scoped>

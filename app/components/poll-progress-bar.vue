@@ -1,76 +1,78 @@
 <script setup lang="ts">
-import { onMounted, onBeforeUnmount, ref, computed } from "vue";
-import type { Poll } from "~~/types";
+import type { Poll } from '~~/types'
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 
 const props = defineProps<{
-    fwPercent: number;
-    libPercent: number;
-    currentPoll: Poll;
-}>();
+  fwPercent: number
+  libPercent: number
+  currentPoll: Poll
+}>()
 
-const sparkEl = ref<HTMLElement | null>(null);
-let timer: number | null = null;
+const sparkEl = ref<HTMLElement | null>(null)
+let timer: number | null = null
 
 function random(min: number, max: number) {
-    return Math.random() * (max - min) + min;
+  return Math.random() * (max - min) + min
 }
 
 const intensity = computed(() => {
-    const distance = Math.abs(props.fwPercent - 50);
-    return 1 - Math.min(distance / 50, 1);
-});
+  const distance = Math.abs(props.fwPercent - 50)
+  return 1 - Math.min(distance / 50, 1)
+})
 
 onMounted(() => {
-    timer = window.setInterval(
-        () => {
-            if (!sparkEl.value) return;
+  timer = window.setInterval(
+    () => {
+      if (!sparkEl.value)
+        return
 
-            const power = intensity.value;
+      const power = intensity.value
 
-            sparkEl.value.style.setProperty(
-                "--spark-x",
-                `${random(-6, 6) * power}px`,
-            );
-            sparkEl.value.style.setProperty(
-                "--spark-y",
-                `${random(-6, 6) * power}px`,
-            );
-            sparkEl.value.style.setProperty(
-                "--spark-rot",
-                `${random(-30, 30) * power}deg`,
-            );
-        },
-        random(60, 120),
-    );
-});
+      sparkEl.value.style.setProperty(
+        '--spark-x',
+        `${random(-6, 6) * power}px`,
+      )
+      sparkEl.value.style.setProperty(
+        '--spark-y',
+        `${random(-6, 6) * power}px`,
+      )
+      sparkEl.value.style.setProperty(
+        '--spark-rot',
+        `${random(-30, 30) * power}deg`,
+      )
+    },
+    random(60, 120),
+  )
+})
 
 onBeforeUnmount(() => {
-    if (timer) clearInterval(timer);
-});
+  if (timer)
+    clearInterval(timer)
+})
 </script>
 
 <template>
-    <div class="progress-container">
-        <div class="progress-bar">
-            <div
-                class="fw-bar pattern-fw"
-                :style="{ width: fwPercent + '%' }"
-            ></div>
-            <div
-                class="lib-bar pattern-lib"
-                :style="{ width: libPercent + '%' }"
-            ></div>
+  <div class="progress-container">
+    <div class="progress-bar">
+      <div
+        class="fw-bar pattern-fw"
+        :style="{ width: `${fwPercent}%` }"
+      />
+      <div
+        class="lib-bar pattern-lib"
+        :style="{ width: `${libPercent}%` }"
+      />
 
-            <div ref="sparkEl" class="spark" :style="{ left: fwPercent + '%' }">
-                ⚡
-            </div>
-        </div>
-
-        <div class="progress-labels">
-            <span class="fw-label">Framework: {{ currentPoll.fw }}</span>
-            <span class="lib-label">Library: {{ currentPoll.lib }}</span>
-        </div>
+      <div ref="sparkEl" class="spark" :style="{ left: `${fwPercent}%` }">
+        ⚡
+      </div>
     </div>
+
+    <div class="progress-labels">
+      <span class="fw-label">Framework: {{ currentPoll.fw }}</span>
+      <span class="lib-label">Library: {{ currentPoll.lib }}</span>
+    </div>
+  </div>
 </template>
 
 <style scoped>

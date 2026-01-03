@@ -1,12 +1,12 @@
-import browserslist from "browserslist";
-import { browserslistToTargets } from "lightningcss";
+import browserslist from 'browserslist'
+import { browserslistToTargets } from 'lightningcss'
 
 export default defineNuxtConfig({
-  modules: ["@vueuse/nuxt"],
+  modules: ['@vueuse/nuxt'],
   css: [
-    "~/assets/css/reset.css",
-    "~/assets/css/theme.css",
-    "~/assets/css/patterns.css",
+    '~/assets/css/reset.css',
+    '~/assets/css/theme.css',
+    '~/assets/css/patterns.css',
   ],
 
   nitro: {
@@ -15,34 +15,34 @@ export default defineNuxtConfig({
     },
     devStorage: {
       db: {
-        driver: "fs-lite",
-        base: "./data/db",
+        driver: 'fs-lite',
+        base: './data/db',
       },
     },
     storage: {
       db: {
-        driver: "fs-lite",
+        driver: 'fs-lite',
         // TODO: change for prod data folder path
-        base: "./data/db",
+        base: './data/db',
       },
     },
   },
 
   vite: {
     css: {
-      transformer: "lightningcss",
+      transformer: 'lightningcss',
       lightningcss: {
-        targets: browserslistToTargets(browserslist(">= 0.25%")),
+        targets: browserslistToTargets(browserslist('>= 0.25%')),
         drafts: {
           customMedia: true,
         },
       },
     },
     build: {
-      cssMinify: "lightningcss",
+      cssMinify: 'lightningcss',
     },
   },
 
-  compatibilityDate: "2025-07-15",
+  compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-});
+})

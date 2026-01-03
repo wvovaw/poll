@@ -1,5 +1,5 @@
 <template>
-    <h1>Is React a framework or a library?</h1>
+  <h1>Is React a framework or a library?</h1>
 </template>
 
 <style scoped>
