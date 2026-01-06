@@ -11,6 +11,29 @@ export function useWebSocketHandler() {
   const proto = import.meta.env.PROD ? 'wss' : 'ws'
   const { data, send, status } = useWebSocket(
     `${proto}://${window.location.host}/api/poll-ws`,
+    {
+      heartbeat: {
+        interval: 15000,
+      },
+      autoReconnect: {
+        retries: 5,
+        // Exponential backoff: 1s, 2s, 4s, 8s, 16s
+        delay: retries => Math.min(1000 * 2 ** (retries - 1), 30000),
+        onFailed() {
+          console.log('Connection failed after 5 retries')
+        },
+      },
+      onConnected(ws) {
+        console.log('Connected ws', ws)
+      },
+      onError(ws) {
+        console.log('Connection error', ws)
+      },
+      onDisconnected(ws, event) {
+        console.log('Connection closed', event)
+        console.log(ws)
+      },
+    },
   )
 
   watch(data, (newData) => {
