@@ -10,7 +10,7 @@ export function useWebSocketHandler() {
 
   const proto = import.meta.env.PROD ? 'wss' : 'ws'
   const { data, send, status } = useWebSocket(
-    `${proto}://${window.location.host}/api/poll-ws`,
+    `${proto}://${window.location.host}/poll-ws`,
     {
       heartbeat: {
         interval: 15000,
